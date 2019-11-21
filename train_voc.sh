@@ -2,7 +2,7 @@
 #
 #SBATCH --job-name=GCN_voc
 #SBATCH --output=logsvoc/hh_%j.txt  # output file
-#SBATCH -e logs/hh_%j.err        # File to which STDERR will be written
+#SBATCH -e logsvoc/hh_%j.err        # File to which STDERR will be written
 #SBATCH --partition=titanx-long # Partition to submit to
 #SBATCH --gres=gpu:1
 #
