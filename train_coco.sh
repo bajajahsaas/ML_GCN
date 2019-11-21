@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #SBATCH --job-name=GCN_coco
-#SBATCH --output=logs/hh_%j.txt  # output file
+#SBATCH --output=logscoco/hh_%j.txt  # output file
 #SBATCH -e logs/hh_%j.err        # File to which STDERR will be written
 #SBATCH --partition=titanx-long # Partition to submit to
 #SBATCH --gres=gpu:1
