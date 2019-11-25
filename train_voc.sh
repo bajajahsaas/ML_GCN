@@ -9,7 +9,7 @@
 #
 #SBATCH --ntasks=1
 
-python -u demo_voc2007_gcn.py data/voc --image-size 448 --batch-size 32 -e --resume checkpoint/voc/voc_checkpoint.pth.tar
+python -u demo_voc2007_gcn.py data/voc --image-size 448 --batch-size 8 -e --resume checkpoint/voc/voc_checkpoint.pth.tar
 #sleep 1
 exit
 

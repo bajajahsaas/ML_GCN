@@ -9,7 +9,7 @@
 #
 #SBATCH --ntasks=1
 
-python -u  demo_coco_gcn.py data/coco --image-size 448 --batch-size 32 -e --resume checkpoint/coco/coco_checkpoint.pth.tar
+python -u  demo_coco_gcn.py data/coco --image-size 448 --batch-size 8 -e --resume checkpoint/coco/coco_checkpoint.pth.tar
 #sleep 1
 exit
 
