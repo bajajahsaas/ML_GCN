@@ -103,6 +103,7 @@ class Engine(object):
                     data_time=data_time, loss_current=self.state['loss_batch'], loss=loss))
 
     def on_forward(self, training, model, criterion, data_loader, optimizer=None, display=True):
+        #  Over-ridden by GCNMultiLabelMAPEngine
 
         input_var = torch.autograd.Variable(self.state['input'])
         target_var = torch.autograd.Variable(self.state['target'])
@@ -365,14 +366,15 @@ class MultiLabelMAPEngine(Engine):
         return map
 
     def on_start_batch(self, training, model, criterion, data_loader, optimizer=None, display=True):
+        #  Over-ridden by GCNMultiLabelMAPEngine
 
         self.state['target_gt'] = self.state['target'].clone()
         self.state['target'][self.state['target'] == 0] = 1
         self.state['target'][self.state['target'] == -1] = 0
 
-        input = self.state['input']
-        self.state['input'] = input[0]
-        self.state['name'] = input[1]
+        input = self.state['input']  # Check coco.py L127
+        self.state['input'] = input[0]  # img object
+        self.state['name'] = input[1]  # filename
 
     def on_end_batch(self, training, model, criterion, data_loader, optimizer=None, display=True):
 
@@ -406,9 +408,10 @@ class MultiLabelMAPEngine(Engine):
 
 class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
     def on_forward(self, training, model, criterion, data_loader, optimizer=None, display=True):
-        feature_var = torch.autograd.Variable(self.state['feature']).float()
+        feature_var = torch.autograd.Variable(self.state['feature']).float()  # image object
         target_var = torch.autograd.Variable(self.state['target']).float()
-        inp_var = torch.autograd.Variable(self.state['input']).float().detach()  # one hot
+        inp_var = torch.autograd.Variable(self.state['input']).float().detach()  # one hot. # pickle of word2vec.
+        # state['input'] modified in L437 of this file
         if not training:
             feature_var.volatile = True
             target_var.volatile = True
