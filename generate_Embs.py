@@ -30,6 +30,8 @@ def get_Embeddings(num_classes, num_dim, categories_file_name):
     embs = np.zeros((num_classes, num_dim))
     with open(categories_file_name, 'r') as f:
         ann = json.loads(f.read())
+        # 79 keys in labels.json
+
         for k, v in ann.items():
             label = k
             index = v
@@ -50,9 +52,6 @@ def testing_pickles(inp_name, adj_file, num_classes):
     with open(inp_name, 'rb') as f:
         inp = pickle.load(f)
         print('inp_name', len(inp), len(inp[0]))
-
-    for i in range(num_classes):
-        print(np.sum(inp[i]))
 
     result = pickle.load(open(adj_file, 'rb'))
     _adj = result['adj']
@@ -78,21 +77,20 @@ def testing_pickles(inp_name, adj_file, num_classes):
 
 # Sequence of these embeddings same as category json
 
-# categories_file_name = "./data/category.json"  # ms-coco dataset (autodownloaded)
-# pickle_name = "./data/mscoco_glove_word2vec.pkl"
+categories_file_name = "./data/labels.json"  # baseline (half&half): 79 classes
+pickle_name = "./data/baseline_glove_word2vec.pkl"
 
-# categories_file_name = "./data/labels.json"  # ms-coco dataset (autodownloaded)
-# pickle_name = "./data/baseline_glove_word2vec.pkl"
+# categories_file_name = "./data/ms_coco_labels.json"  # Visual Gnome
+# pickle_name = "./data/visualgnome_glove_word2vec.pkl"
 
-categories_file_name = "./data/ms_coco_labels.json"  # ms-coco dataset (autodownloaded)
-pickle_name = "./data/visualgnome_glove_word2vec.pkl"
-
-num_classes = 80
+num_classes = 79  # labels.json
 num_dims = 300
+
 label_embeddings = get_Embeddings(num_classes, num_dims, categories_file_name)
 with open(pickle_name, "wb") as f:
     pickle.dump(label_embeddings, f)
 
-inp_name = 'data/coco/coco_glove_word2vec.pkl'
-adj_file = 'data/coco/coco_adj.pkl'
-# testing_pickles(inp_name, adj_file, num_classes)
+
+inp_name = 'data/baseline_glove_word2vec.pkl'
+adj_file = 'data/baseline_left_labels.pkl'
+testing_pickles(inp_name, adj_file, num_classes)
