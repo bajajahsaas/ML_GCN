@@ -4,6 +4,7 @@ from util import *
 import torch
 import torch.nn as nn
 
+
 class GraphConvolution(nn.Module):
     """
     Simple GCN layer, similar to https://arxiv.org/abs/1609.02907
@@ -85,11 +86,10 @@ class GCNResnet(nn.Module):
 
     def get_config_optim(self, lr, lrp):
         return [
-                {'params': self.features.parameters(), 'lr': lr * lrp},
-                {'params': self.gc1.parameters(), 'lr': lr},
-                {'params': self.gc2.parameters(), 'lr': lr},
-                ]
-
+            {'params': self.features.parameters(), 'lr': lr * lrp},
+            {'params': self.gc1.parameters(), 'lr': lr},
+            {'params': self.gc2.parameters(), 'lr': lr},
+        ]
 
 
 def gcn_resnet101(num_classes, t, pretrained=True, adj_file=None, in_channel=300):

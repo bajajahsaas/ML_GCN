@@ -442,6 +442,6 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         self.state['out'] = input[1]
         self.state['input'] = input[2]
         print('On_start_batch of GCNMultiLabelMAPEngine')
-        print(len(input[0]), len(input[0][0]))
-        print(len(input[1]), len(input[1][0]))
-        print(len(input[2]), len(input[2][0]))
+        print(len(input[0]), len(input[0][0]), len(input[0][0][0]))
+        print(len(input[1]), len(input[1][0]), input[1][0])
+        print(len(input[2]), len(input[2][0]), len(input[2][0][0]))
