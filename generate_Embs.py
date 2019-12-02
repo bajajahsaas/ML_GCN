@@ -59,7 +59,7 @@ def testing_pickles(inp_name, adj_file, num_classes):
     print('adj_file', len(_adj), len(_adj[0]))
 
     # Here _adj is diagonal matrix. With all diagonal elements = 0 (co-occurence within same label not considered)
-
+    print(_nums)
     _nums = _nums[:, np.newaxis]
     _adj = _adj / _nums
     _adj[_adj < t] = 0
@@ -76,21 +76,22 @@ def testing_pickles(inp_name, adj_file, num_classes):
 
 
 # Sequence of these embeddings same as category json
+#
+# categories_file_name = "./data/labels.json"  # baseline (half&half): 79 classes
+# pickle_name = "./data/baseline_glove_word2vec.pkl"
+#
+# # categories_file_name = "./data/ms_coco_labels.json"  # Visual Gnome
+# # pickle_name = "./data/visualgenome_glove_word2vec.pkl"
+#
+# num_classes = 79  # labels.json
+# num_dims = 300
+#
+# label_embeddings = get_Embeddings(num_classes, num_dims, categories_file_name)
+# with open(pickle_name, "wb") as f:
+#     pickle.dump(label_embeddings, f)
 
-categories_file_name = "./data/labels.json"  # baseline (half&half): 79 classes
-pickle_name = "./data/baseline_glove_word2vec.pkl"
-
-# categories_file_name = "./data/ms_coco_labels.json"  # Visual Gnome
-# pickle_name = "./data/visualgnome_glove_word2vec.pkl"
-
-num_classes = 79  # labels.json
-num_dims = 300
-
-label_embeddings = get_Embeddings(num_classes, num_dims, categories_file_name)
-with open(pickle_name, "wb") as f:
-    pickle.dump(label_embeddings, f)
-
-
-inp_name = 'data/baseline_glove_word2vec.pkl'
-adj_file = 'data/baseline_left_labels.pkl'
+# VG: 2 classes for 0 frequency _nums in training set
+num_classes = 80 # Genome
+inp_name = './data/visualgenome_glove_word2vec.pkl'
+adj_file = './data/visualgenome_left_labels.pkl'
 testing_pickles(inp_name, adj_file, num_classes)
