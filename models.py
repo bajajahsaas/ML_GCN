@@ -70,9 +70,10 @@ class GCNResnet(nn.Module):
         feature = self.features(feature)
         feature = self.pooling(feature)
         feature = feature.view(feature.size(0), -1)
-
-
+        print('GCNResnet forward')
+        print('inp', inp.size())
         inp = inp[0]
+        print('inp0', inp.size())
         adj = gen_adj(self.A).detach()
         x = self.gc1(inp, adj)
         x = self.relu(x)

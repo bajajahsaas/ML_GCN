@@ -417,6 +417,9 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
             target_var.volatile = True
             inp_var.volatile = True
 
+        print('on_forward of GCNMultiLabelMAPEngine')
+        print('feature_var=', feature_var.size())
+        print('inp_var=', inp_var.size())
         # compute output
         self.state['output'] = model(feature_var, inp_var)
         self.state['loss'] = criterion(self.state['output'], target_var)
@@ -438,4 +441,5 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         self.state['feature'] = input[0]
         self.state['out'] = input[1]
         self.state['input'] = input[2]
-
+        print('On_start_batch of GCNMultiLabelMAPEngine')
+        print(input[0].size(), input[1].size(), input[2].size())
