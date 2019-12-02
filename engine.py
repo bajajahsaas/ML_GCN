@@ -418,8 +418,8 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
             inp_var.volatile = True
 
         print('on_forward of GCNMultiLabelMAPEngine')
-        print('feature_var=', len(feature_var))
-        print('inp_var=', len(inp_var), len(inp_var[0]))
+        print('feature_var=', len(feature_var), len(feature_var[0]))
+        print('inp_var=', len(inp_var), len(inp_var[0]), len(inp_var[0][0]))
         # compute output
         self.state['output'] = model(feature_var, inp_var)  # L69 of models.py
         self.state['loss'] = criterion(self.state['output'], target_var)
@@ -437,9 +437,11 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         self.state['target'][self.state['target'] == 0] = 1
         self.state['target'][self.state['target'] == -1] = 0
 
-        input = self.state['input']
+        input = self.state['input']  #  Assigned tuples to the input in get() of coco.py. Given to state['input'] in train step
         self.state['feature'] = input[0]
         self.state['out'] = input[1]
         self.state['input'] = input[2]
         print('On_start_batch of GCNMultiLabelMAPEngine')
-        print(len(input[0]), len(input[1]), len(input[2]), len(input[2][0]))
+        print(len(input[0]), len(input[0][0]))
+        print(len(input[1]), len(input[1][0]))
+        print(len(input[2]), len(input[2][0]))
