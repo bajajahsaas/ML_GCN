@@ -418,10 +418,10 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
             inp_var.volatile = True
 
         print('on_forward of GCNMultiLabelMAPEngine')
-        print('feature_var=', feature_var.size())
-        print('inp_var=', inp_var.size())
+        print('feature_var=', len(feature_var))
+        print('inp_var=', len(inp_var), len(inp_var[0]))
         # compute output
-        self.state['output'] = model(feature_var, inp_var)
+        self.state['output'] = model(feature_var, inp_var)  # L69 of models.py
         self.state['loss'] = criterion(self.state['output'], target_var)
 
         if training:
@@ -442,4 +442,4 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         self.state['out'] = input[1]
         self.state['input'] = input[2]
         print('On_start_batch of GCNMultiLabelMAPEngine')
-        print(input[0].size(), input[1].size(), input[2].size())
+        print(len(input[0]), len(input[1]), len(input[2]), len(input[2][0]))
