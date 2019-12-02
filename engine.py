@@ -104,7 +104,7 @@ class Engine(object):
 
     def on_forward(self, training, model, criterion, data_loader, optimizer=None, display=True):
         #  Over-ridden by GCNMultiLabelMAPEngine
-
+        print('on forward on Engine')
         input_var = torch.autograd.Variable(self.state['input'])
         target_var = torch.autograd.Variable(self.state['target'])
 
@@ -266,6 +266,7 @@ class Engine(object):
         end = time.time()
         for i, (input, target) in enumerate(data_loader):
             # measure data loading time
+            print('Iteration: ', i)
             self.state['iteration'] = i
             self.state['data_time_batch'] = time.time() - end
             self.state['data_time'].add(self.state['data_time_batch'])
@@ -417,7 +418,7 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
             target_var.volatile = True
             inp_var.volatile = True
 
-
+        print('on-forward of GCNMultiLabelMAPEngine')
         # feature_var: batch x 3 x 448 (batch x channels x image_features)
         # inp_var: batch x num_classes x 300
         # compute output
@@ -432,7 +433,7 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
 
 
     def on_start_batch(self, training, model, criterion, data_loader, optimizer=None, display=True):
-
+        print('on-start-batch of GCNMultiLabelMAPEngine')
         self.state['target_gt'] = self.state['target'].clone()
         self.state['target'][self.state['target'] == 0] = 1
         self.state['target'][self.state['target'] == -1] = 0

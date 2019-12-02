@@ -71,7 +71,7 @@ class GCNResnet(nn.Module):
         feature = self.features(feature)
         feature = self.pooling(feature)
         feature = feature.view(feature.size(0), -1)
-
+        print('Forward of GCNResnet', len(inp), len(inp[0]), len(inp[0][0]))
         # batch x num_classes x 300
         inp = inp[0]
 
