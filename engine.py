@@ -417,9 +417,9 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
             target_var.volatile = True
             inp_var.volatile = True
 
-        print('on_forward of GCNMultiLabelMAPEngine')
-        print('feature_var=', len(feature_var), len(feature_var[0]))
-        print('inp_var=', len(inp_var), len(inp_var[0]), len(inp_var[0][0]))
+        # print('on_forward of GCNMultiLabelMAPEngine')
+        # print('feature_var=', len(feature_var), len(feature_var[0]))
+        # print('inp_var=', len(inp_var), len(inp_var[0]), len(inp_var[0][0]))
         # compute output
         self.state['output'] = model(feature_var, inp_var)  # L69 of models.py
         self.state['loss'] = criterion(self.state['output'], target_var)
@@ -442,6 +442,6 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         self.state['out'] = input[1]
         self.state['input'] = input[2]
         print('On_start_batch of GCNMultiLabelMAPEngine')
-        print(len(input[0]), len(input[0][0]), len(input[0][0][0]))
-        print(len(input[1]), len(input[1][0]), input[1][0])
-        print(len(input[2]), len(input[2][0]), len(input[2][0][0]))
+        # print(len(input[0]), len(input[0][0]), len(input[0][0][0]))
+        # print(len(input[1]), len(input[1][0]), input[1][0])
+        # print(len(input[2]), len(input[2][0]), len(input[2][0][0]))
