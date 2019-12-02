@@ -74,8 +74,8 @@ class GCNResnet(nn.Module):
         print('Forward of GCNResnet', len(inp), len(inp[0]), len(inp[0][0]))
         # batch x num_classes x 300
         inp = inp[0]
-
-        # num_classes x 300
+        # all images in the batch have same (80 x 300) embeddings as those are label embeddings and nothing to do
+        # with particular image num_classes x 300. Every image inp_var will have same value
         adj = gen_adj(self.A).detach()
         x = self.gc1(inp, adj)
         x = self.relu(x)
