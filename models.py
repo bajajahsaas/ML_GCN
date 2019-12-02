@@ -96,3 +96,7 @@ class GCNResnet(nn.Module):
 def gcn_resnet101(num_classes, t, pretrained=True, adj_file=None, in_channel=300):
     model = models.resnet101(pretrained=pretrained)
     return GCNResnet(model, num_classes, t=t, adj_file=adj_file, in_channel=in_channel)
+
+if __name__ == '__main__':
+    model = models.resnet101(pretrained=True)
+    print(GCNResnet(model, 79, t=0.4, adj_file="./data/baseline_left_labels.pkl", in_channel=300))

@@ -424,7 +424,8 @@ class GCNMultiLabelMAPEngine(MultiLabelMAPEngine):
         # compute output
         self.state['output'] = model(feature_var, inp_var)  # L69 of models.py
         self.state['loss'] = criterion(self.state['output'], target_var)
-
+        print('output: ', self.state['output'].size())
+        print('target: ', target_var.size())
         if training:
             optimizer.zero_grad()
             self.state['loss'].backward()
